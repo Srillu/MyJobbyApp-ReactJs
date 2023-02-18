@@ -1,0 +1,18 @@
+.similar-jobs-items-container {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.similar-list-items {
+  background-color: #242625;
+  margin: 30px;
+  width: 400px;
+  padding: 30px;
+  color: #ffffff;
+}
+
+* {
+  font-family: 'Roboto';
+  color: #ffffff;
+}
