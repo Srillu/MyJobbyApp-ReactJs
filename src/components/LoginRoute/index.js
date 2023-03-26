@@ -64,28 +64,34 @@ class LoginRoute extends Component {
             src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
           />
 
-          <label htmlFor="username" className="label">
-            USERNAME
-          </label>
-          <input
-            value={username}
-            onChange={this.onChangeUsername}
-            placeholder="Username"
-            className="input-el"
-            id="username"
-            type="text"
-          />
-          <label htmlFor="password" className="label">
-            PASSWORD
-          </label>
-          <input
-            value={password}
-            onChange={this.onChangePassword}
-            placeholder="Password"
-            className="input-el"
-            id="password"
-            type="password"
-          />
+          <div className="username-container">
+            <label htmlFor="username" className="label">
+              USERNAME
+            </label>
+            <input
+              value={username}
+              onChange={this.onChangeUsername}
+              placeholder="Username"
+              className="input-el"
+              id="username"
+              type="text"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password" className="label">
+              PASSWORD
+            </label>
+            <input
+              value={password}
+              onChange={this.onChangePassword}
+              placeholder="Password"
+              className="input-el"
+              id="password"
+              type="password"
+            />
+          </div>
+
           <button type="submit" className="login-button">
             Login
           </button>

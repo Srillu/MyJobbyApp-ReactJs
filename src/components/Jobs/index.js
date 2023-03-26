@@ -64,7 +64,7 @@ class Jobs extends Component {
     profileList: [],
     apiStatus: apiConstants.initial,
     jobsApiStatus: apiConstants.initial,
-    employeeType: '',
+    employeeType: [],
     expectedSalary: '',
     inputValue: '',
   }
@@ -104,9 +104,22 @@ class Jobs extends Component {
   retryButton = () => this.getProfile()
 
   renderProfileFailureView = () => (
-    <button className="retry-button" type="button" onClick={this.retryButton}>
-      Retry
-    </button>
+    <div
+      style={{
+        display: 'flex',
+        padding: '50px',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <button
+        className="header-logout-button"
+        type="button"
+        onClick={this.retryButton}
+      >
+        Retry
+      </button>
+    </div>
   )
 
   jobProfileOnSuccess = () => {
@@ -140,6 +153,7 @@ class Jobs extends Component {
     this.setState({apiStatus: apiConstants.inProgress})
     const {employeeType, expectedSalary, inputValue} = this.state
     const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${employeeType}&minimum_package=${expectedSalary}&search=${inputValue}`
+    console.log(apiUrl)
     const jwtToken = Cookies.get('jwt_token')
     const options = {
       headers: {
@@ -178,26 +192,43 @@ class Jobs extends Component {
   }
 
   onChangeEmployee = event => {
-    console.log(event.target.value)
-    this.setState({employeeType: event.target.value})
+    const {employeeType} = this.state
+    console.log(event.target.id)
+
+    const filterArray = employeeType.filter(
+      eachItem => eachItem === event.target.id,
+    )
+
+    if (filterArray.length === 0) {
+      this.setState(
+        prevState => ({
+          employeeType: [...prevState.employeeType, event.target.id],
+        }),
+        this.getJobs,
+      )
+    } else {
+      const filteredArray = employeeType.filter(
+        eachItem => eachItem !== event.target.id,
+      )
+
+      this.setState({employeeType: filteredArray}, this.getJobs)
+    }
   }
 
   onChangeSalary = event => {
-    console.log(event.target.value)
-    this.setState({expectedSalary: event.target.value})
+    console.log(event.target.id)
+    this.setState({expectedSalary: event.target.id}, this.getJobs)
   }
 
   renderTypeOfEmployment = () => (
     <ul className="type-employment-container">
       <h1 className="heading">Type of Employment</h1>
       {employmentTypesList.map(eachItem => (
-        <li key={eachItem.employmentTypeId}>
+        <li key={eachItem.employmentTypeId} className="employee-item">
           <input
             type="checkbox"
             id={eachItem.employmentTypeId}
-            value={eachItem.employmentTypeId}
             onChange={this.onChangeEmployee}
-            name={eachItem.employmentTypeId}
           />
           <label htmlFor={eachItem.employmentTypeId}>{eachItem.label}</label>
         </li>
@@ -209,13 +240,12 @@ class Jobs extends Component {
     <ul className="type-employment-container">
       <h1 className="heading">Salary Range</h1>
       {salaryRangesList.map(eachItem => (
-        <li key={eachItem.salaryRangeId}>
+        <li key={eachItem.salaryRangeId} className="employee-item">
           <input
-            onChange={this.onChangeSalary}
             type="radio"
             id={eachItem.salaryRangeId}
-            value={eachItem.label}
             name="radioBox"
+            onChange={this.onChangeSalary}
           />
           <label htmlFor={eachItem.salaryRangeId}>{eachItem.label}</label>
         </li>
@@ -232,7 +262,6 @@ class Jobs extends Component {
         return this.renderSuccessView()
       case apiConstants.failure:
         return this.renderFailureView()
-
       default:
         return null
     }
@@ -243,16 +272,18 @@ class Jobs extends Component {
   }
 
   renderFailureView = () => (
-    <div>
+    <div className="failure-view-container">
       <img
         alt="failure view"
         src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
       />
-      <h1>Oops! Something Went Wrong</h1>
-      <p>We cannot seem to find the page you are looking for</p>
-      <button type="button" onClick={this.onClickRetryJobsButton}>
-        Retry
-      </button>
+      <div>
+        <h1>Oops! Something Went Wrong</h1>
+        <p>We cannot seem to find the page you are looking for</p>
+        <button type="button" onClick={this.onClickRetryJobsButton}>
+          Retry
+        </button>
+      </div>
     </div>
   )
 
@@ -271,9 +302,9 @@ class Jobs extends Component {
   )
 
   allJobs = () => {
-    const {jobsList} = this.state
-    console.log(jobsList)
-
+    const {jobsList, employeeType} = this.state
+    // console.log(jobsList)
+    console.log(employeeType)
     return (
       <ul className="jobs-list">
         {jobsList.map(jobs => (
@@ -294,14 +325,16 @@ class Jobs extends Component {
                 </div>
               </div>
               <div className="middle-wise-container">
-                <div className="middle-container">
-                  <IoLocationSharp className="location-icon" />
-                  <p className="rating">{jobs.location}</p>
-                </div>
+                <div style={{display: 'flex'}}>
+                  <div className="middle-container">
+                    <IoLocationSharp className="location-icon" />
+                    <p className="rating">{jobs.location}</p>
+                  </div>
 
-                <div className="middle-container">
-                  <IoBagRemoveSharp className="location-icon" />
-                  <p className="rating">{jobs.employmentType}</p>
+                  <div className="middle-container">
+                    <IoBagRemoveSharp className="location-icon" />
+                    <p className="rating">{jobs.employmentType}</p>
+                  </div>
                 </div>
                 <div className="package">
                   <p>{jobs.packagePerAnnum}</p>
@@ -329,6 +362,23 @@ class Jobs extends Component {
     return (
       <>
         <div className="job-container">
+          <div className="search-input-container-mobile">
+            <input
+              type="search"
+              className="input-box"
+              placeholder="search"
+              onChange={this.onChangeSearchInput}
+              value={inputValue}
+            />
+            <button
+              type="button"
+              data-testid="searchButton"
+              className="search-icon-button"
+              onClick={this.searchInput}
+            >
+              <BsSearch className="search-icon" />
+            </button>
+          </div>
           <div>
             {this.renderProfileBasedOnApi()}
             <hr />

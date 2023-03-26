@@ -1,6 +1,10 @@
+.nav-headers {
+  background-color: #242625;
+}
+
 .nav-header {
   list-style-type: none;
-  background-color: #242625;
+  /* background-color: #242625; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -8,6 +12,7 @@
   padding-right: 20px;
   padding: 15px;
   /* width: 80vw; */
+  margin-top: 0px;
 }
 
 .nav-menu {
@@ -31,4 +36,89 @@
   border-radius: 5px;
   width: 80px;
   height: 30px;
+}
+
+@media screen and (max-width: 767px) {
+  .nav-menu {
+    display: none;
+  }
+}
+.nav-menu-mobile {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: #242625;
+}
+
+.nav-icon-container {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 767px) {
+  .nav-header {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .nav-menu-mobile {
+    display: none;
+  }
+}
+
+.nav-menu-item-mobile {
+  margin: 0px;
+  cursor: pointer;
+}
+
+.header-mobile-logo {
+  height: 30px;
+  width: ;
+}
+
+.nav-menu-list-mobile {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  align-items: center;
+  height: 70px;
+  flex: 1;
+  list-style-type: none;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding: 0px;
+}
+
+@media screen and (max-width: 767px) {
+  .logout-desktop-btn {
+    display: none;
+  }
+}
+
+.nav-mobile-btn {
+  border: none;
+  padding: 0px;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+@media screen and (min-width: 768px) {
+  .nav-mobile-btn {
+    display: none;
+  }
+}
+
+.nav-bar-img {
+  width: 24px;
+  color: #ffffff;
+  height: 25px;
+  width: 30px;
+}
+
+.mobile-logout-button {
+  background-color: transparent;
+  border: 0px;
 }

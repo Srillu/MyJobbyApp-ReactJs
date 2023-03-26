@@ -2,7 +2,8 @@ import {Component} from 'react'
 
 import {BsBriefcaseFill} from 'react-icons/bs'
 import {ImLocation} from 'react-icons/im'
-import {FcRating} from 'react-icons/fc'
+import {AiFillStar} from 'react-icons/ai'
+import {FiExternalLink} from 'react-icons/fi'
 
 import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
@@ -29,12 +30,6 @@ class JobItemDetailsRoute extends Component {
   componentDidMount() {
     this.getJobDetails()
   }
-
-  renderLoader = () => (
-    <div className="products-loader-container" data-testid="loader">
-      <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
-    </div>
-  )
 
   getJobDetails = async () => {
     const {match} = this.props
@@ -90,109 +85,125 @@ class JobItemDetailsRoute extends Component {
     const {jobDetails, similarJobs, skills} = this.state
     return (
       <>
-        <div>
-          <div className="each-job-card">
+        <div className="jobcard-container">
+          <div className="each-jobitem-card">
             <div>
               <div>
                 <img
+                  className="company-logo-url"
                   src={jobDetails.companyLogoUrl}
                   alt="job details company logo"
                 />
               </div>
               <div>
-                <h1>{jobDetails.title}</h1>
+                <h1 className="jobcard-headings">{jobDetails.title}</h1>
                 <p>
-                  <FcRating />
+                  <AiFillStar className="jobdetails-star" />
                   {jobDetails.rating}
                 </p>
               </div>
             </div>
-            <div>
-              <div>
-                <div>
+            <div className="middle-wise-container">
+              <div style={{display: 'flex'}}>
+                <div className="middle-container">
                   <ImLocation />
-                  <p>{jobDetails.location}</p>
+                  <p style={{marginRight: '10px'}}>{jobDetails.location}</p>
                 </div>
-                <div>
+                <div className="middle-container">
                   <BsBriefcaseFill />
                   <p>{jobDetails.employmentType}</p>
                 </div>
               </div>
               <p>{jobDetails.packagePerAnnum}</p>
             </div>
-            <hr />
-            <div>
-              <h1>Description</h1>
+            <hr className="line" />
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <h1 className="jobcard-headings">Description</h1>
+
               <a
                 href={jobDetails.companyWebsiteUrl}
                 rel="noreferrer"
                 target="_blank"
+                className="visit-link-a"
               >
                 Visit
+                <FiExternalLink className="job-visit-link-icon" />
               </a>
             </div>
             <p>{jobDetails.jobDescription}</p>
-            <h1>Skills</h1>
+            <h1 className="jobcard-headings">Skills</h1>
 
-            <ul>
+            <ul className="skills-container">
               {skills.map(eachSkill => (
-                <li key={eachSkill.name}>
-                  <img src={eachSkill.imageUrl} alt={eachSkill.name} />
+                <li key={eachSkill.name} className="skills-list-item">
+                  <img
+                    src={eachSkill.imageUrl}
+                    alt={eachSkill.name}
+                    className="skill-image"
+                  />
                   <p>{eachSkill.name}</p>
                 </li>
               ))}
             </ul>
-            <div>
-              <div>
-                <h1>Life at Company</h1>
-                <p>{jobDetails.description}</p>
+            <div className="life-at-company-container">
+              <div style={{marginRight: '20px'}}>
+                <h1 className="jobcard-headings">Life at Company</h1>
+                <p className="life-at-company-description">
+                  {jobDetails.description}
+                </p>
               </div>
               <div>
                 <img
                   src={jobDetails.lifeAtCompanyImageUrl}
                   alt="life at company"
+                  className="life-at-company-image"
                 />
               </div>
             </div>
           </div>
-          <div>
-            <h1>Similar Jobs</h1>
-          </div>
-          <ul className="similar-jobs-items-container">
-            {similarJobs.map(jobItem => (
-              <li key={jobItem.id} className="similar-list-items">
-                <div>
-                  <div>
-                    <img
-                      src={jobItem.company_logo_url}
-                      alt="similar job company logo"
-                    />
-                  </div>
-                  <div>
-                    <h1>{jobItem.title}</h1>
-                    <p>
-                      <FcRating />
-                      {jobItem.rating}
-                    </p>
-                  </div>
-                </div>
-                <h1>Description</h1>
-                <p>{jobItem.job_description}</p>
-                <div>
+          <div className="similar-jobscontainer">
+            <h1 style={{marginLeft: '70px'}}>Similar Jobs</h1>
+            <ul className="similar-jobs-items-container">
+              {similarJobs.map(jobItem => (
+                <li key={jobItem.id} className="similar-list-items">
                   <div>
                     <div>
-                      <ImLocation />
-                      <p>{jobItem.location}</p>
+                      <img
+                        className="company-logo-url"
+                        src={jobItem.company_logo_url}
+                        alt="similar job company logo"
+                      />
                     </div>
                     <div>
+                      <h1 className="jobcard-headings">{jobItem.title}</h1>
+                      <p>
+                        <AiFillStar className="jobdetails-star" />
+                        {jobItem.rating}
+                      </p>
+                    </div>
+                  </div>
+                  <h1 className="jobcard-headings">Description</h1>
+                  <p>{jobItem.job_description}</p>
+                  <div style={{display: 'flex'}}>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                      <ImLocation />
+                      <p style={{marginRight: '10px'}}>{jobItem.location}</p>
+                    </div>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
                       <BsBriefcaseFill />
                       <p>{jobItem.employment_type}</p>
                     </div>
                   </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </>
     )
@@ -214,6 +225,12 @@ class JobItemDetailsRoute extends Component {
         </button>
       </div>
     </>
+  )
+
+  renderLoader = () => (
+    <div className="jobdetail-container" data-testid="loader">
+      <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
+    </div>
   )
 
   jobsDetails = apiStatus => {

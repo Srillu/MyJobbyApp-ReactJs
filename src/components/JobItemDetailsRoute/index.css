@@ -1,18 +1,145 @@
+.jobcard-container {
+  background-color: #121212;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  color: #ffffff;
+}
+
+.skills-container {
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  /* background-color: aliceblue; */
+  padding-left: 0px;
+  margin-top: 0px;
+}
+
+.visit-link-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #6366f1;
+  font-size: 22px;
+}
+
+.job-visit-link-icon {
+  color: #6366f1;
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+.skills-list-item {
+  display: flex;
+  margin: 30px;
+  margin-left: 0px;
+}
+
+.skill-image {
+  height: 50px;
+  width: 50px;
+  margin-right: 15px;
+}
+
+.life-at-company-container {
+  display: flex;
+}
+
+@media screen and (max-width: 767px) {
+  .life-at-company-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .life-at-company-image {
+    width: 90%;
+  }
+
+  .life-at-company-description {
+    font-size: 18px;
+  }
+}
+
+.jobdetail-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 300px;
+}
+
+.each-jobitem-card {
+  min-height: 350px;
+  background-color: #242625;
+  list-style-type: none;
+  margin-right: 35px;
+  margin-bottom: 25px;
+  margin-left: 0;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  cursor: pointer;
+  outline: none;
+  width: 60%;
+}
+
+.similar-jobscontainer {
+  display: flex;
+  flex-direction: column;
+  /* background-color: aquamarine; */
+}
+
+@media screen and (max-width: 767px) {
+  .each-jobitem-card {
+    width: 90%;
+  }
+}
+
 .similar-jobs-items-container {
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
+  /* background-color: #6366f1; */
+
+  margin-left: 0px;
 }
 
 .similar-list-items {
-  background-color: #242625;
   margin: 30px;
   width: 400px;
   padding: 30px;
   color: #ffffff;
+  background-color: #242625;
+  border-radius: 10px;
 }
 
-* {
-  font-family: 'Roboto';
-  color: #ffffff;
+@media screen and (max-width: 767px) {
+  .similar-list-items {
+    margin-left: 0px;
+    width: 90%;
+  }
+  .company-logo-url {
+    height: 80px;
+    width: ;
+  }
+}
+
+.jobcard-headings {
+  font-size: 20px;
+}
+
+.package-container {
+  background-color: aliceblue;
+  display: flex;
+  justify-content: space-between;
+}
+
+.jobdetails-star {
+  color: #fbbf24;
+  font-size: 20px;
+  margin-right: 12px;
 }
